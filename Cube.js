@@ -72,9 +72,13 @@ function Cube( gl, vertexShaderId, fragmentShaderId )
     gl.enableVertexAttribArray(color_attributeLoc);
 
     MV = gl.getUniformLocation(this.program, "MV");
-        
+    P = gl.getUniformLocation(this.program, "P");
+    V = gl.getUniformLocation(this.program, "V");    
     
     this.MV = mat4();
+    this.P = mat4();
+    this.V = mat4();
+
 
     this.render = function () {
         gl.useProgram(this.program);
@@ -88,6 +92,9 @@ function Cube( gl, vertexShaderId, fragmentShaderId )
             gl.FLOAT, gl.FALSE, 0, 0);
 
         gl.uniformMatrix4fv(MV, gl.FALSE, flatten(this.MV));
+        gl.uniformMatrix4fv(P, gl.FALSE, flatten(this.P));
+        gl.uniformMatrix4fv(V, gl.FALSE, flatten(this.V));
+
 
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, index_buffer);
         gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
